@@ -1,0 +1,90 @@
+.\" cclc Linux manpage
+.\" Copyright (C) 2018 steelstring94@gmail.com
+
+.\" This work is licensed under the 
+.\" Creative Commons Attribution-ShareAlike 4.0 International License. 
+.\" To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/ 
+.\" or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+
+.\" ANY AND ALL WARRANTIES, EXPRESS OR IMPLIED, ARE DISCLAIMED.
+.\" SEE SECTION 5 OF 
+.\" CREATIVE COMMONS ATTRIBUTION SHAREALIKE 4.0 INTERNATIONAL LICENSE
+.\" FOR FULL WARRANTY DISCLAIMER.
+
+.TH cclc 1 "February 6 2018" "version 1.0.0"
+.SH NAME
+cclc - Calculate chmod permission codes
+
+.SH SYNOPSIS
+.B cclc
+\fIBINARY PERMISSIONS\fR
+
+.br
+
+.B cclc
+[\fITARGETS\fR] \fI PERMISSIONS
+
+.SH DESCRIPTION
+Calculator for \fBchmod\fR permission codes.  Accepts input either as binary representation of rwx in the order USER GROUP OTHER (so 111 101 100 would be rwx r-x r--), or lettered arguments u, g and/or o with each one followed by r, w and/or x in any order.
+
+.PP
+Any permissions left out will be automatically denied.  Also, in the case of binary input, you may truncate non-significant 0s (so 100 001 0 could be 100 1).  In the case of lettered input, you simply need not specify any permissions you want to deny.  So permission code 600 (rw- --- ---) would be \fBcclc -u rw\fR
+
+.SH EXAMPLES
+The output of \fBcclc\fR is intended to be interpolated into \fBchmod\fR
+
+.PP
+For example, \fBchmod `cclc -ug rw -o r` ./testfile\fR would apply permissions \fBrw- rw- r--\fR to file \fB./testfile\fR
+.PP
+The same result could be achieved with \fBchmod `cclc 110 110 100` ./testfile\fR
+
+.PP
+If not interpolated, \fBcclc\fR will output the permissions code on the command line.
+
+.SH OPTIONS
+.TP
+\fB-u\fR
+.br
+specify permissions for user
+.TP
+\fB-g\fR
+.br
+specify permissions for group
+.TP
+\fB-o\fR
+.br
+specify permissions for other
+.TP
+\fBrwx\fR
+.br
+read, write and execute permissions - used with lettered target arguments
+.br
+.TP
+\fB1|0\fR
+.br
+represent rwx permissions in \fBuser group other\fR order, using \fB1\fR to give a permission and \fB0\fR to deny it
+
+.SH BUGS
+None known
+
+.SH AUTHOR
+steelstring94@gmail.com
+
+.SH LICENSE
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+.PP
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+.PP
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+.SH SEE ALSO
+chmod(1)

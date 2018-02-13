@@ -1,0 +1,31 @@
+if mkdir build && gcc -c src/main.c src/modules/*.c && gcc -o build/cclc *.o -lm
+	then
+		echo
+		echo 'Compilation successful.'
+		echo
+		echo 'Attempting automatic installation.'
+		echo 'You will be prompted for your sudo'
+		echo 'password.'
+		echo
+		
+		if sudo cp build/cclc /usr/local/bin && sudo cp man/cclc.1 /usr/local/share/man/man1
+			then
+				echo
+				echo 'Automatic installation successful'
+				echo
+		else
+			echo
+			echo 'Automatic installation failed.'
+			echo 'Please install build/cclc'
+			echo 'and man/cclc.1 to their'
+			echo 'appropriate destinatons'
+			echo 'on your system.  See'
+			echo 'the source code of'
+			echo 'this script for guidance.'
+			echo
+		fi
+	else
+		echo
+		echo 'ERROR: Compilation unsuccessful'
+		echo
+fi
