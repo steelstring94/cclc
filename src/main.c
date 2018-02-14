@@ -43,15 +43,6 @@ int main(int argc, char *argv[]) {
 	//This will hold the rwx permissions
 	char *perms[] = {"", "", ""};
 
-	//Initialize to empty string.
-	//Otherwise we will get a
-	//segfault in processPerms()
-	//if the user enters less than
-	//3 targets.
-	for(int i = 0; i < 3; i++) {
-		perms[i] = "";
-	}
-
 	//Validate input arguments and
 	//handle response code
 	switch(validateArguments(argc, argv, targets, perms)) {
