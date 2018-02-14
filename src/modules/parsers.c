@@ -1,5 +1,7 @@
 /* Copyright (C) 2018 steelstring94@gmail.com
 
+	This file is part of cclc.
+
     cclc is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -18,7 +20,6 @@
 #include <math.h>
 #include <string.h>
 #include <stdbool.h>
-#include <stdio.h>
 #include <stdlib.h>
 
 void parsePermStrs(const size_t argc, char **argv, char *targets, char **perms) {
